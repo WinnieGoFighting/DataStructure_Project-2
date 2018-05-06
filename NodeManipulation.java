@@ -1,6 +1,8 @@
 
 package project2_ni_wei;
 
+import java.util.ArrayList;
+
 public class NodeManipulation {
     BSTNode root;
     
@@ -15,6 +17,7 @@ public class NodeManipulation {
     
     public boolean insert(BSTNode root,Employee employee) {
         //Salaries which are different by less then $3000 are not allowed to be added
+        //System.out.println("dhfladlfa:"+employee.salary);
         if(Math.abs(employee.salary-root.employee.salary)<3000) {
             System.out.println("Salaries that are different by less than $3000 cannot be added");
             System.out.println(employee.name+" "+employee.salary+" failed to be added.");
@@ -38,6 +41,30 @@ public class NodeManipulation {
                 return insert(root.right,employee);
             }
         }
+    }
+    
+    //This method is used to insert nodes into BST through binary search order
+    public void binarySearchInsertion(Employee[] employeeArray) {
+        int n = employeeArray.length;  
+        if(n==1||n==2){
+            for(int i =0;i<n;i++) {
+                insert(employeeArray[i]);
+            }
+            return;
+        }
+
+        int mid = n/2;
+        insert(employeeArray[mid]);   
+        Employee[] left = new Employee[mid];
+        Employee[] right = new Employee[n-mid-1];  
+        for(int i=0;i<mid;i++) {
+            left[i]=employeeArray[i];
+        }
+        for(int i=0;i<n-mid-1;i++) {
+            right[i]=employeeArray[i+mid+1];
+        }
+        binarySearchInsertion(left);
+        binarySearchInsertion(right);
     }
     
     public BSTNode search(int salary) {
@@ -110,5 +137,12 @@ public class NodeManipulation {
         while(root.left!=null)
             root = root.left;
             return root;
+    }
+    
+    void printInorder(BSTNode root) {
+        if(root == null) return;
+        printInorder(root.left);
+        System.out.println(root.employee.name+" "+root.employee.salary);
+        printInorder(root.right);
     }
 }

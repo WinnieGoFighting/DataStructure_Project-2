@@ -16,14 +16,15 @@ public class Project2_NI_WEI {
         List<Employee> employees = new ArrayList<>();
         loadData(employees);
         //sort the ArrayList by salary before inserting nodes into binary tree
-        Collections.sort(employees);
-        
+        Collections.sort(employees);   
         //put nodes into binary tree
-        NodeManipulation m = new NodeManipulation();
         System.out.println("+++++++++++++++++++++++Insert nodes into BST+++++++++++++++++++++++++++++++");
-        for(Employee employee:employees) {
-            m.insert(employee);
-        }
+        NodeManipulation m = new NodeManipulation();
+        Employee[] employeeArray = employees.toArray(new Employee[employees.size()]);
+        m.binarySearchInsertion(employeeArray);
+        System.out.println("+++++++++++++++++++++++Inorder print BST++++++++++++++++++++++++++++++++");
+        System.out.println("root information: "+m.root.employee.name+" "+m.root.employee.salary);
+        m.printInorder(m.root);
         System.out.println("+++++++++++++++++++++++Search Node through Salary 87000++++++++++++++++++++");
         BSTNode searchNode = m.search(87000);
         System.out.println("+++++++++Try to search by salary 87000 after the node is deleted+++++++++++");
@@ -43,4 +44,6 @@ public class Project2_NI_WEI {
                 line = br.readLine();
             }       
         }
+    
+    
 }
